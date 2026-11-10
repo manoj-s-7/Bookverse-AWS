@@ -15,7 +15,12 @@ Every book opens a new world. React + TypeScript + Vite + Tailwind + React Route
 3. Restart `npm run dev`. No code changes needed.
 
 Open Library needs no key. Vite bakes `VITE_*` values into the browser bundle, so never put a private secret there; a provider that needs one requires a small proxy.
-For Docker: `docker build --build-arg VITE_DATA_MODE=live --build-arg VITE_GOOGLE_BOOKS_API_KEY=xxx -t bookverse .`
+For Docker, pass the values at build time. Vite embeds `VITE_*` values into the browser bundle, so the Google key must be restricted to your deployed domains:
+
+    docker build --build-arg VITE_DATA_MODE=live --build-arg VITE_GOOGLE_BOOKS_API_KEY=xxx -t bookverse .
+    docker run --rm -p 8080:80 bookverse
+
+The Google key is not a private server-side secret in this frontend architecture; use Google Cloud HTTP referrer restrictions and API restrictions.
 
 ## Docker
 

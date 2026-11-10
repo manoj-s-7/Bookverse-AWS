@@ -3,7 +3,7 @@
 One image (Nginx serving the built SPA), default VPC, no backend. Replace REGION, ACCOUNT_ID.
 
 1. **ECR repository**: `aws ecr create-repository --repository-name bookverse --region REGION`
-2. **Build**: `docker build --build-arg VITE_DATA_MODE=live -t bookverse .` (add the Google key build arg if used)
+2. **Build**: `docker build --build-arg VITE_DATA_MODE=live --build-arg VITE_GOOGLE_BOOKS_API_KEY=YOUR_RESTRICTED_KEY -t bookverse .`
 3. **Tag**: `docker tag bookverse:latest ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/bookverse:latest`
 4. **Authenticate**: `aws ecr get-login-password --region REGION | docker login --username AWS --password-stdin ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com`
 5. **Push**: `docker push ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/bookverse:latest`
